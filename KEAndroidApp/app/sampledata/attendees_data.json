@@ -1,0 +1,64 @@
+{
+  "attendees": [
+    {
+      "name": "Chuby",
+      "last_name": "Avodroc",
+      "avatar": "dev.chuby.images/0",
+      "about": "Lorem ipsum..."
+    },
+    {
+      "name": "David",
+      "last_name": "Córdova",
+      "avatar": "dev.chuby.images/1",
+      "about": "Lorem ipsum..."
+    },
+    {
+      "name": "Portero",
+      "last_name": "He's god",
+      "avatar": "dev.chuby.images/2",
+      "about": "Lorem ipsum..."
+    },
+    {
+      "name": "Hugo",
+      "last_name": "Arevlo",
+      "avatar": "dev.chuby.images/3",
+      "about": "Lorem ipsum..."
+    },
+    {
+      "name": "Teni",
+      "last_name": "CSS police",
+      "avatar": "dev.chuby.images/4",
+      "about": "Lorem ipsum..."
+    },
+    {
+      "name": "Manuel",
+      "last_name": "Etneinet",
+      "avatar": "dev.chuby.images/5",
+      "about": "Lorem ipsum..."
+    },
+    {
+      "name": "Panda",
+      "last_name": "Firefighter",
+      "avatar": "dev.chuby.images/6",
+      "about": "Lorem ipsum..."
+    },
+    {
+      "name": "Jaime",
+      "last_name": "Zenemij",
+      "avatar": "dev.chuby.images/7",
+      "about": "Lorem ipsum..."
+    },
+    {
+      "name": "Savir",
+      "last_name": "Guev",
+      "avatar": "dev.chuby.images/8",
+      "about": "Lorem ipsum..."
+    },
+    {
+      "name": "Angel",
+      "last_name": "Araveug",
+      "avatar": "dev.chuby.images/9",
+      "about": "Lorem ipsum..."
+    }
+  ]
+}
