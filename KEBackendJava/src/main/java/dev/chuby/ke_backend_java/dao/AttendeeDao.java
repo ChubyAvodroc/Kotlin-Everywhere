@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface AttendeeDao extends JpaRepository<Attendee, Long> {
 
     @Query(value = "SELECT * FROM ATTENDEES WHERE id = :attendee_id", nativeQuery = true)
-    Attendee getAttendee(@Param("attendee_id") Long attendee_if);
+    Attendee getAttendee(@Param("attendee_id") Long attendee_id);
 }
