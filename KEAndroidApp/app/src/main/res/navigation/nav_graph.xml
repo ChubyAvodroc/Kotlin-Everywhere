@@ -36,7 +36,11 @@
             android:name="dev.chuby.ke_android_app.AddAttendeeFragment"
             android:label="AddAttendeeFragment"
             tools:layout="@layout/fragment_add_attendee"
-    />
+    >
+        <action android:id="@+id/action_addAttendeeFragment_to_actionsFragment"
+                app:destination="@id/actionsFragment"
+        />
+    </fragment>
 
     <fragment
             android:id="@+id/attendeesFragment"
