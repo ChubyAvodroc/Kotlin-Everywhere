@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main_nav_graph"
+        app:startDestination="@id/actionsFragment">
+
+    <fragment
+            android:id="@+id/actionsFragment"
+            android:name="dev.chuby.ke_android_app.ActionsFragment"
+            android:label="ActionsFragment"
+            tools:layout="@layout/fragment_actions"
+    >
+        <action android:id="@+id/action_actionsFragment_to_addAttendeeFragment"
+                app:destination="@id/addAttendeeFragment"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"
+        />
+
+        <action
+                android:id="@+id/action_actionsFragment_to_attendeesFragment"
+                app:destination="@id/attendeesFragment"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"
+        />
+
+    </fragment>
+
+    <fragment
+            android:id="@+id/addAttendeeFragment"
+            android:name="dev.chuby.ke_android_app.AddAttendeeFragment"
+            android:label="AddAttendeeFragment"
+            tools:layout="@layout/fragment_add_attendee"
+    />
+
+    <fragment
+            android:id="@+id/attendeesFragment"
+            android:name="dev.chuby.ke_android_app.AttendeesFragment"
+            android:label="AttendeesFragment"
+            tools:layout="@layout/fragment_attendees"
+    >
+        <action
+                android:id="@+id/action_attendeesFragment_to_attendeeFragment"
+                app:destination="@id/attendeeFragment"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+
+    </fragment>
+
+    <fragment
+            android:id="@+id/attendeeFragment"
+            android:name="dev.chuby.ke_android_app.AttendeeFragment"
+            android:label="AttendeeFragment"
+            tools:layout="@layout/fragment_attendee"
+    />
+
+</navigation>
