@@ -1,7 +1,8 @@
-package dev.chuby.ke_android_app
+package dev.chuby.ke_android_app.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import dev.chuby.ke_android_app.R
 
 class MainActivity : AppCompatActivity() {
 

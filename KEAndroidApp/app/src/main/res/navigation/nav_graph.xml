@@ -8,7 +8,7 @@
 
     <fragment
             android:id="@+id/actionsFragment"
-            android:name="dev.chuby.ke_android_app.ActionsFragment"
+            android:name="dev.chuby.ke_android_app.ui.ActionsFragment"
             android:label="ActionsFragment"
             tools:layout="@layout/fragment_actions"
     >
@@ -33,7 +33,7 @@
 
     <fragment
             android:id="@+id/addAttendeeFragment"
-            android:name="dev.chuby.ke_android_app.AddAttendeeFragment"
+            android:name="dev.chuby.ke_android_app.ui.AddAttendeeFragment"
             android:label="AddAttendeeFragment"
             tools:layout="@layout/fragment_add_attendee"
     >
@@ -44,7 +44,7 @@
 
     <fragment
             android:id="@+id/attendeesFragment"
-            android:name="dev.chuby.ke_android_app.AttendeesFragment"
+            android:name="dev.chuby.ke_android_app.ui.AttendeesFragment"
             android:label="AttendeesFragment"
             tools:layout="@layout/fragment_attendees"
     >
@@ -60,7 +60,7 @@
 
     <fragment
             android:id="@+id/attendeeFragment"
-            android:name="dev.chuby.ke_android_app.AttendeeFragment"
+            android:name="dev.chuby.ke_android_app.ui.AttendeeFragment"
             android:label="AttendeeFragment"
             tools:layout="@layout/fragment_attendee"
     />
