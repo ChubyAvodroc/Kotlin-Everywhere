@@ -18,11 +18,11 @@
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:textSize="25sp"
-            android:textColor="@color/black"
-            tools:text="KE Attendees"
+            android:text="@string/show_attendees_title"
     />
 
     <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_attendees"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
