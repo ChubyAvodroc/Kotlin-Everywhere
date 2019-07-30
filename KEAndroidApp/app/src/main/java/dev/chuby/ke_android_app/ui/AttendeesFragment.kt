@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import dev.chuby.ke_android_app.AttendeesRepository
 import dev.chuby.ke_android_app.R
 import dev.chuby.ke_android_app.model.Attendee
 import dev.chuby.ke_android_app.model.Failure
@@ -26,17 +25,17 @@ class AttendeesFragment : Fragment() {
     }
 
     private val viewModel by lazy {
-        ViewModelProviders.of(
-            this,
-            AttendeeViewModelFactory(attendeesRepository)
-        )[AttendeesViewModel::class.java]
+        activity?.run {
+            ViewModelProviders.of(
+                this,
+                AttendeeViewModelFactory()
+            )[AttendeesViewModel::class.java]
+        } ?: throw Exception("Invalid activity")
     }
 
     private lateinit var rvAttendees: RecyclerView
     private lateinit var pbLoader: ProgressBar
     private val adapter = AttendeeAdapter()
-
-    val attendeesRepository: AttendeesRepository? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_attendees, container, false)
