@@ -18,11 +18,11 @@
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:textSize="25sp"
-            android:textColor="@color/black"
-            tools:text="KE Attendees"
+            android:text="@string/attendees_title"
     />
 
     <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_attendees"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
@@ -32,6 +32,18 @@
             app:layout_constraintTop_toBottomOf="@id/tv_attendees_title"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_attendee"
+    />
+
+    <ProgressBar
+            android:id="@+id/pb_loader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
+            tools:visibility="visible"
     />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

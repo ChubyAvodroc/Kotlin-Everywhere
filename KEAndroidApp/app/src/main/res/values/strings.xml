@@ -5,6 +5,7 @@
     <string name="btn_add_attendee">Agregar asistente</string>
     <string name="btn_show_attendees">Mostrar asistentes</string>
 
+    <string name="attendees_title">KE Attendees</string>
     <string name="add_attendee_title">Agregar asistente</string>
     <string name="hint_add_attendee_name">Nombre</string>
     <string name="hint_add_attendee_last_name">Apellido</string>
