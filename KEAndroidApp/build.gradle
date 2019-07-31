@@ -9,6 +9,7 @@ buildscript {
     ext.navigation_fragment_version = '2.0.0'
     ext.navigation_ui_version = '2.0.0'
     ext.picasso_version = '2.71828'
+    ext.ktor_version = '1.2.0'
     ext.junit_version = '4.12'
     ext.test_runner_version = '1.2.0'
     ext.espresso_version = '3.2.0'
