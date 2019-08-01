@@ -15,17 +15,17 @@ public class Attendee {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "id_gen")
     private Long id;
 
-    @Column
+    @Column(nullable=false)
     private String name;
 
-    @Column
+    @Column(nullable=false)
     @SerializedName("last_name")
     private String lastName;
 
-    @Column
+    @Column(nullable=false)
     private String avatar;
 
-    @Column
+    @Column(nullable=false)
     private String about;
 
     // Constructor
