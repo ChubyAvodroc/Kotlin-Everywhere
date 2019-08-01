@@ -27,13 +27,7 @@ android {
 
     packagingOptions {
         exclude 'META-INF/atomicfu.kotlin_module'
-        exclude 'META-INF/kotlinx-io.kotlin_module'
-        exclude 'META-INF/kotlinx-coroutines-io.kotlin_module'
-        exclude 'META-INF/kotlinx-coroutines-core.kotlin_module'
-        exclude 'META-INF/ktor-client-core.kotlin_module'
-        exclude 'META-INF/ktor-http.kotlin_module'
-        exclude 'META-INF/ktor-http-cio.kotlin_module'
-        exclude 'META-INF/ktor-utils.kotlin_module'
+        exclude 'META-INF/*.kotlin_module'
     }
 }
 
@@ -51,7 +45,7 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_fragment_version"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_ui_version"
     implementation "com.squareup.picasso:picasso:$picasso_version"
-    implementation "io.ktor:ktor-client-cio:$ktor_version"
+    implementation "io.ktor:ktor-client-okhttp:$ktor_version"
     implementation "io.ktor:ktor-client-core:$ktor_version"
     implementation "io.ktor:ktor-client-okhttp:$ktor_version"
     implementation "io.ktor:ktor-client-android:$ktor_version"
