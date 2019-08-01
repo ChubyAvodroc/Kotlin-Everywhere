@@ -4,9 +4,9 @@ import dev.chuby.ke_android_app.model.Attendee
 
 interface AttendeesRepository {
 
-    fun createAttendee(attendee: Attendee)
+    suspend fun createAttendee(attendee: Attendee): Attendee
 
-    fun getAttendees(): List<Attendee>
+    suspend fun getAttendees(): List<Attendee>
 
-    fun getAttendee(id: Long): Attendee
+    suspend fun getAttendee(id: Long): Attendee
 }
