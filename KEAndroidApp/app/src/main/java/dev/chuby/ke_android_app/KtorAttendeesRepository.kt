@@ -2,6 +2,8 @@ package dev.chuby.ke_android_app
 
 import dev.chuby.ke_android_app.model.Attendee
 import io.ktor.client.HttpClient
+import io.ktor.client.features.json.GsonSerializer
+import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.request.post
@@ -15,6 +17,12 @@ object KtorAttendeesRepository : AttendeesRepository {
     private const val BASE_URL = "http://192.168.1.129:8090"
 
     private val client = HttpClient {
+        install(JsonFeature) {
+            serializer = GsonSerializer {
+                serializeNulls()
+                disableHtmlEscaping()
+            }
+        }
 
     }
 
