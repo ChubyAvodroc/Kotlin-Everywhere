@@ -1,12 +1,12 @@
 package dev.chuby.ke_android_app.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -49,25 +49,26 @@ class AttendeesFragment : Fragment() {
 
         rvAttendees.adapter = adapter
 
-        when (val viewState = viewModel.loadAttendees()) {
-            is Loading -> showLoader()
-            is Success -> showAttendees(viewState.data)
-            is Failure -> showFailureMessage(viewState.message)
-        }
+        viewModel.screenState.observe(this, Observer { viewState ->
+            when (viewState) {
+                is Loading -> showLoader()
+                is Success -> showAttendees(viewState.data as List<Attendee>)
+                is Failure -> showFailureMessage(viewState.message)
+            }
+        })
+
+        viewModel.loadAttendees()
 
     }
 
     private fun showAttendees(attendees: List<Attendee>) {
         hideLoader()
         adapter.submitList(attendees)
-        Log.i(TAG, "List of attendees $attendees")
     }
 
     private fun showFailureMessage(message: String) {
         hideLoader()
-        Log.e(TAG, "There was an error $message")
         Snackbar.make(view!!, message, Snackbar.LENGTH_LONG).show()
-
     }
 
     private fun showLoader() {
