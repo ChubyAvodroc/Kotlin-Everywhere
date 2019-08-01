@@ -4,6 +4,10 @@ import dev.chuby.ke_android_app.model.Attendee
 import io.ktor.client.HttpClient
 import io.ktor.client.features.json.GsonSerializer
 import io.ktor.client.features.json.JsonFeature
+import io.ktor.client.features.logging.LogLevel
+import io.ktor.client.features.logging.Logger
+import io.ktor.client.features.logging.Logging
+import io.ktor.client.features.logging.SIMPLE
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.request.post
@@ -22,6 +26,11 @@ object KtorAttendeesRepository : AttendeesRepository {
                 serializeNulls()
                 disableHtmlEscaping()
             }
+        }
+
+        install(Logging) {
+            logger = Logger.SIMPLE
+            level = LogLevel.ALL
         }
 
     }
