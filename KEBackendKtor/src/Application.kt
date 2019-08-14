@@ -1,6 +1,7 @@
 package dev.chuby
 
 import io.ktor.application.*
+import io.ktor.auth.Authentication
 import io.ktor.routing.*
 import io.ktor.features.CallLogging
 import io.ktor.features.ContentNegotiation
@@ -14,6 +15,10 @@ fun main(args: Array<String>) = io.ktor.server.netty.EngineMain.main(args)
 fun Application.module(testing: Boolean = false) {
     install(CallLogging) {
         level = Level.TRACE
+    }
+
+    install(Authentication) {
+        basicAuth()
     }
 
     install(ContentNegotiation) {
