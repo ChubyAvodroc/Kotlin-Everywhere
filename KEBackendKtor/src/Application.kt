@@ -25,7 +25,7 @@ fun Application.module(testing: Boolean = false) {
     }
 
     install(Routing) {
-        val database = Database
+        val database: Database = InMemoryDatabase
 
         rootApi()
         attendeesApi(database)
