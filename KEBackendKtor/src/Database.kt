@@ -8,8 +8,8 @@ interface Database {
 
     fun getAttendees(): List<Attendee>
 
-    fun findAttendee(id: Long): Attendee?
+    fun findAttendee(id: Long): Attendee
 
-    fun deleteAttendee(id: Long): Boolean
+    fun deleteAttendee(id: Long): Attendee
 
 }

@@ -9,6 +9,13 @@ import io.ktor.response.respond
 
 fun StatusPages.Configuration.errorHandler() {
 
+    exception<Throwable> { cause ->
+        call.respond(
+            HttpStatusCode.BadRequest,
+            Error("err_bad_request", cause.message ?: "")
+        )
+    }
+
     exception<AttendeeNotFoundException> { cause ->
         call.respond(
             HttpStatusCode.NotFound,

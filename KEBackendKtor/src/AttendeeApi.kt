@@ -19,10 +19,7 @@ fun Routing.attendeesApi(database: Database) {
         post("/attendees") {
             val request = call.request
             if (request.contentType() != ContentType.Application.Json) {
-                call.respond(
-                    HttpStatusCode.BadRequest,
-                    Error("bad ContentType", "${request.contentType()} not defined for this request")
-                )
+                throw Exception("Content-Type: ${request.contentType()} not defined for this request")
             } else {
                 val attendeeRequest = call.receive<Attendee>()
                 val savedAttendee = database.createAttendee(attendeeRequest)
@@ -30,15 +27,19 @@ fun Routing.attendeesApi(database: Database) {
             }
 
         }
+
+        delete("/attendees/{id}") {
+            val attendeeId = call.parameters["id"]?.toLong() ?: -1
+            val deleted = database.deleteAttendee(attendeeId)
+            call.respond(HttpStatusCode.Accepted, deleted)
+
+        }
     }
 
     get("/attendees") {
         val request = call.request
         if (request.uri.endsWith("/"))
-            call.respond(
-                HttpStatusCode.NotFound,
-                Error("bad endpoint", "Missing attendee id")
-            )
+            throw Exception("Missing attendee id")
         else {
             val attendees = database.getAttendees()
             call.respond(attendees)
@@ -48,38 +49,9 @@ fun Routing.attendeesApi(database: Database) {
 
     get("/attendees/{id}") {
         val attendeeId = call.parameters["id"]
-        println("Param: $attendeeId")
         val attendee = database.findAttendee(attendeeId?.toLong() ?: -1)
+        call.respond(attendee)
 
-        if (attendee != null)
-            call.respond(attendee)
-        else
-            call.respond(
-                HttpStatusCode.NotFound,
-                Error("Id: $attendeeId in invalid", "Cannot retrieve: Attendee not found")
-            )
-
-    }
-
-    authenticate("myBasicAuth") {
-
-        delete("/attendees/{id}") {
-            val attendeeId = call.parameters["id"]?.toLong() ?: -1
-            println("Param: $attendeeId")
-
-            val attendee = database.findAttendee(attendeeId)
-
-            val deleted = database.deleteAttendee(attendeeId)
-
-            if (deleted)
-                call.respond(HttpStatusCode.OK, attendee as Attendee)
-            else
-                call.respond(
-                    HttpStatusCode.NotFound,
-                    Error("Id: $attendeeId in invalid", "Cannot delete: Attendee not found")
-                )
-
-        }
     }
 
 }

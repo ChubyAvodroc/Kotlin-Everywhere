@@ -7,7 +7,7 @@ object InMemoryDatabase : Database {
     private val attendees: MutableMap<Long, Attendee> = mutableMapOf(
         0L to Attendee(0L, "Adrian", "Catalán", about = "GDE"),
         1L to Attendee(1L, "Sier", "Violencia", about = "Androd dev"),
-        2L to Attendee(2L, "Chuby", "Avodroc", about = "Android dev")
+        2L to Attendee(2L, "Chuby", "Avodròc", about = "Android dev")
     )
 
     private var id: Long = attendees.size.toLong()
@@ -30,14 +30,22 @@ object InMemoryDatabase : Database {
     }
 
 
-    override fun findAttendee(id: Long): Attendee? {
+    override fun findAttendee(id: Long): Attendee {
         Thread.sleep(1500)
-        return attendees[id]
+        val attendee: Attendee? = attendees[id]
+        return attendee ?: throw AttendeeNotFoundException(
+            "err_invalid_id",
+            "Cannot retrieve: Attendee with id: $id was not found"
+        )
     }
 
-    override fun deleteAttendee(id: Long): Boolean {
+    override fun deleteAttendee(id: Long): Attendee {
         Thread.sleep(1500)
-        return attendees.remove(id) != null
+        val deletedAttendee: Attendee? = attendees.remove(id)
+        return deletedAttendee ?: throw AttendeeNotFoundException(
+            "err_invalid_id",
+            "Cannot delete: Attendee with id: $id was not found"
+        )
     }
 
 }
