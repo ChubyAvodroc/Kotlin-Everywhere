@@ -5,8 +5,6 @@ import com.google.gson.Gson
 import dev.chuby.ke_android_app.model.*
 import io.ktor.client.HttpClient
 import io.ktor.client.call.receive
-import io.ktor.client.features.auth.Auth
-import io.ktor.client.features.auth.providers.basic
 import io.ktor.client.features.json.GsonSerializer
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.logging.LogLevel
@@ -52,13 +50,48 @@ object KtorAttendeesRepository : AttendeesRepository {
     }
 
     override suspend fun getAttendees(): Resource<List<Attendee>> = withContext(Dispatchers.IO) {
-        val attendees = client.get<List<Attendee>>("$BASE_URL/attendees")
-        DataResource(attendees)
+        try {
+            val response: HttpResponse = client.get("$BASE_URL/attendees")
+
+            when (response.status.value) {
+                200 -> {
+                    val attendees: List<Attendee> = response.receive()
+                    DataResource(attendees)
+                }
+                else -> {
+                    val bytes = response.readBytes()
+                    val error2 = bytes.toString(Charset.defaultCharset())
+
+                    ErrorResource(Gson().fromJson(error2, Error::class.java))
+                }
+            }
+
+        } catch (cause: Throwable) {
+            Log.e(TAG, "There was an error in the request: ", cause)
+            throw cause
+        }
     }
 
     override suspend fun getAttendee(id: Long): Resource<Attendee> = withContext(Dispatchers.IO) {
-        val attendee = client.get<Attendee>("$BASE_URL/attendees/$id")
-        DataResource(attendee)
+        try {
+            val response: HttpResponse = client.get("$BASE_URL/attendees/$id")
+
+            when (response.status.value) {
+                200 -> {
+                    val attendee: Attendee = response.receive()
+                    DataResource(attendee)
+                }
+                else -> {
+                    val bytes = response.readBytes()
+                    val error2 = bytes.toString(Charset.defaultCharset())
+
+                    ErrorResource(Gson().fromJson(error2, Error::class.java))
+                }
+            }
+        } catch (cause: Throwable) {
+            Log.e(TAG, "There was an error in the request: ", cause)
+            throw cause
+        }
     }
 
     override suspend fun createAttendee(attendee: Attendee): Resource<Attendee> = withContext(Dispatchers.IO) {
@@ -94,7 +127,7 @@ object KtorAttendeesRepository : AttendeesRepository {
             }
 
             when (response.status.value) {
-                201 -> {
+                202 -> {
                     val savedAttendee: Attendee = response.receive()
                     DataResource(savedAttendee)
                 }
