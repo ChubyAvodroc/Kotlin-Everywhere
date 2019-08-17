@@ -59,7 +59,7 @@ class AttendeesViewModel(private val attendeesRepository: AttendeesRepository) :
         _screenState.value = Loading
         launch {
             when (val attendeeResource = attendeesRepository.removeAttendee(id)) {
-                is DataResource -> _screenState.value = Success(attendeeResource.data)
+                is DataResource -> _screenState.value = Deleted
                 is ErrorResource -> _screenState.value = Failure(attendeeResource.error.message)
             }
         }
