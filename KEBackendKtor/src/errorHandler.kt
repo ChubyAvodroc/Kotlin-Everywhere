@@ -9,6 +9,13 @@ import io.ktor.response.respond
 
 fun StatusPages.Configuration.errorHandler() {
 
+    status(HttpStatusCode.Unauthorized) {
+        call.respond(
+            HttpStatusCode.Unauthorized,
+            Error("err_unauthorized", "Unauthorized: You have no power here, go away")
+        )
+    }
+
     exception<Throwable> { cause ->
         call.respond(
             HttpStatusCode.BadRequest,
