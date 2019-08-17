@@ -1,9 +1,10 @@
 package dev.chuby.ke_android_app
 
-import dev.chuby.ke_android_app.model.Attendee
-import dev.chuby.ke_android_app.model.DataResource
-import dev.chuby.ke_android_app.model.Resource
+import android.util.Log
+import com.google.gson.Gson
+import dev.chuby.ke_android_app.model.*
 import io.ktor.client.HttpClient
+import io.ktor.client.call.receive
 import io.ktor.client.features.json.GsonSerializer
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.logging.LogLevel
@@ -14,9 +15,12 @@ import io.ktor.client.request.delete
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.request.post
+import io.ktor.client.response.HttpResponse
+import io.ktor.client.response.readBytes
 import io.ktor.http.HttpHeaders
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.nio.charset.Charset
 
 object KtorAttendeesRepository : AttendeesRepository {
 
@@ -49,17 +53,52 @@ object KtorAttendeesRepository : AttendeesRepository {
     }
 
     override suspend fun createAttendee(attendee: Attendee): Resource<Attendee> = withContext(Dispatchers.IO) {
-        val savedAttendee = client.post<Attendee>("$BASE_URL/attendees") {
-            header(HttpHeaders.ContentType, "application/json")
-            body = attendee
+        try {
+            val response: HttpResponse = client.post("$BASE_URL/attendees") {
+                header(HttpHeaders.ContentType, "application/json")
+                body = attendee
+            }
+
+            when (response.status.value) {
+                201 -> {
+                    val savedAttendee: Attendee = response.receive()
+                    DataResource(savedAttendee)
+                }
+                else -> {
+                    val bytes = response.readBytes()
+                    val error2 = bytes.toString(Charset.defaultCharset())
+
+                    ErrorResource(Gson().fromJson(error2, Error::class.java))
+                }
+            }
+        } catch (cause: Throwable) {
+            Log.e(TAG, "There was an error in the request: ", cause)
+            throw cause
         }
-        DataResource(savedAttendee)
     }
 
     override suspend fun removeAttendee(id: Long): Resource<Attendee> = withContext(Dispatchers.IO) {
-        val deletedAttendee = client.delete<Attendee>("$BASE_URL/attendees/$id") {
-            header(HttpHeaders.ContentType, "aaplication/json")
+        try {
+            val response: HttpResponse = client.delete("$BASE_URL/attendees/$id") {
+                header(HttpHeaders.ContentType, "application/json")
+                header(HttpHeaders.Authorization, "Basic Q2h1Ynk6QXZvZHJvYw==")
+            }
+
+            when (response.status.value) {
+                201 -> {
+                    val savedAttendee: Attendee = response.receive()
+                    DataResource(savedAttendee)
+                }
+                else -> {
+                    val bytes = response.readBytes()
+                    val error2 = bytes.toString(Charset.defaultCharset())
+
+                    ErrorResource(Gson().fromJson(error2, Error::class.java))
+                }
+            }
+        } catch (cause: Throwable) {
+            Log.e(TAG, "There was an error in the request: ", cause)
+            throw cause
         }
-        DataResource(deletedAttendee)
     }
 }
