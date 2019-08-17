@@ -5,6 +5,8 @@ import com.google.gson.Gson
 import dev.chuby.ke_android_app.model.*
 import io.ktor.client.HttpClient
 import io.ktor.client.call.receive
+import io.ktor.client.features.auth.Auth
+import io.ktor.client.features.auth.providers.basic
 import io.ktor.client.features.json.GsonSerializer
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.logging.LogLevel
@@ -34,6 +36,13 @@ object KtorAttendeesRepository : AttendeesRepository {
                 disableHtmlEscaping()
             }
         }
+
+//        install(Auth) {
+//            basic {
+//                username = "Chuby"
+//                password = "Avodroc"
+//            }
+//        }
 
         install(Logging) {
             logger = Logger.SIMPLE
