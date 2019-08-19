@@ -1,6 +1,7 @@
 package dev.chuby.ke_android_app.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import dev.chuby.ke_android_app.R
@@ -35,7 +37,16 @@ class AttendeesFragment : Fragment() {
 
     private lateinit var rvAttendees: RecyclerView
     private lateinit var pbLoader: ProgressBar
-    private val adapter = AttendeeAdapter()
+    private val adapter = AttendeeAdapter { selectedAttendee ->
+        Log.i(TAG, "Selected attendee: $selectedAttendee")
+        val arguments = Bundle().apply {
+            putLong(AttendeeFragment.ATTENDEE_ID, selectedAttendee.id)
+        }
+        Navigation.findNavController(view!!).navigate(
+            R.id.action_attendeesFragment_to_attendeeFragment,
+            arguments
+        )
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_attendees, container, false)
