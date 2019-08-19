@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">KE Android App</string>
+
+    <string name="actions_title">Please select an option</string>
+    <string name="btn_add_attendee">Agregar asistente</string>
+    <string name="btn_show_attendees">Mostrar asistentes</string>
+
+    <string name="attendees_title">KE Attendees</string>
+    <string name="add_attendee_title">Agregar asistente</string>
+    <string name="hint_add_attendee_name">Nombre</string>
+    <string name="hint_add_attendee_last_name">Apellido</string>
+    <string name="hint_add_attendee_about">Acerca de &#8230;</string>
+    <string name="bnt_save_attendee">Guardar</string>
+    <string name="btn_delete_attendee">Borrar</string>
 </resources>
