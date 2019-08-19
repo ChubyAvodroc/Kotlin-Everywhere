@@ -4,10 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dev.chuby.ke_android_app.AttendeesRepository
-import dev.chuby.ke_android_app.model.Attendee
-import dev.chuby.ke_android_app.model.Loading
-import dev.chuby.ke_android_app.model.Success
-import dev.chuby.ke_android_app.model.ViewState
+import dev.chuby.ke_android_app.model.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -28,27 +25,43 @@ class AttendeesViewModel(private val attendeesRepository: AttendeesRepository) :
             return _screenState
         }
 
-    fun addAttendee(attendee: Attendee) {
-        _screenState.value = Loading
-        launch {
-            val savedAttendee = attendeesRepository.createAttendee(attendee)
-            _screenState.value = Success(savedAttendee)
-        }
-    }
-
     fun loadAttendees() {
         _screenState.value = Loading
         launch {
-            val attendees = attendeesRepository.getAttendees()
-            _screenState.value = Success(attendees)
+            when (val attendeesResource = attendeesRepository.getAttendees()) {
+                is DataResource -> _screenState.value = Success(attendeesResource.data)
+                is ErrorResource -> _screenState.value = Failure(attendeesResource.error.message)
+            }
         }
     }
 
     fun loadAttendee(id: Long) {
         _screenState.value = Loading
         launch {
-            val attendee = attendeesRepository.getAttendee(id)
-            _screenState.value = Success(attendee)
+            when (val attendeeResource = attendeesRepository.getAttendee(id)) {
+                is DataResource -> _screenState.value = Success(attendeeResource.data)
+                is ErrorResource -> _screenState.value = Failure(attendeeResource.error.message)
+            }
+        }
+    }
+
+    fun addAttendee(attendee: Attendee) {
+        _screenState.value = Loading
+        launch {
+            when (val attendeeResource = attendeesRepository.createAttendee(attendee)) {
+                is DataResource -> _screenState.value = Success(attendeeResource.data)
+                is ErrorResource -> _screenState.value = Failure(attendeeResource.error.message)
+            }
+        }
+    }
+
+    fun deleteAttendee(id: Long) {
+        _screenState.value = Loading
+        launch {
+            when (val attendeeResource = attendeesRepository.removeAttendee(id)) {
+                is DataResource -> _screenState.value = Deleted
+                is ErrorResource -> _screenState.value = Failure(attendeeResource.error.message)
+            }
         }
     }
 
