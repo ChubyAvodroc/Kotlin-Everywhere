@@ -1,9 +1,11 @@
 package dev.chuby
 
 import io.ktor.application.*
+import io.ktor.auth.Authentication
 import io.ktor.routing.*
 import io.ktor.features.CallLogging
 import io.ktor.features.ContentNegotiation
+import io.ktor.features.StatusPages
 import io.ktor.gson.gson
 import org.slf4j.event.Level
 
@@ -12,8 +14,17 @@ fun main(args: Array<String>) = io.ktor.server.netty.EngineMain.main(args)
 @Suppress("unused") // Referenced in application.conf
 @kotlin.jvm.JvmOverloads
 fun Application.module(testing: Boolean = false) {
+
+    install(StatusPages) {
+        errorHandler()
+    }
+
     install(CallLogging) {
         level = Level.TRACE
+    }
+
+    install(Authentication) {
+        basicAuth()
     }
 
     install(ContentNegotiation) {
@@ -25,7 +36,7 @@ fun Application.module(testing: Boolean = false) {
     }
 
     install(Routing) {
-        val database = Database
+        val database: Database = InMemoryDatabase
 
         rootApi()
         attendeesApi(database)

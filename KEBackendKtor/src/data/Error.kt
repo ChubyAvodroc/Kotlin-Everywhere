@@ -1,6 +1,6 @@
 package dev.chuby.data
 
-class Error(
-    val error: String,
+data class Error(
+    val errorCode: String,
     val message: String
 )
