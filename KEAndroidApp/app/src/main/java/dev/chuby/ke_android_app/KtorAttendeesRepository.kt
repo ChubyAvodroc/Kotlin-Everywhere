@@ -18,6 +18,7 @@ import io.ktor.client.request.post
 import io.ktor.client.response.HttpResponse
 import io.ktor.client.response.readBytes
 import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.nio.charset.Charset
@@ -35,13 +36,6 @@ object KtorAttendeesRepository : AttendeesRepository {
             }
         }
 
-//        install(Auth) {
-//            basic {
-//                username = "Chuby"
-//                password = "Avodroc"
-//            }
-//        }
-
         install(Logging) {
             logger = Logger.SIMPLE
             level = LogLevel.ALL
@@ -53,8 +47,8 @@ object KtorAttendeesRepository : AttendeesRepository {
         try {
             val response: HttpResponse = client.get("$BASE_URL/attendees")
 
-            when (response.status.value) {
-                200 -> {
+            when (response.status) {
+                HttpStatusCode.OK -> {
                     val attendees: List<Attendee> = response.receive()
                     DataResource(attendees)
                 }
@@ -76,8 +70,8 @@ object KtorAttendeesRepository : AttendeesRepository {
         try {
             val response: HttpResponse = client.get("$BASE_URL/attendees/$id")
 
-            when (response.status.value) {
-                200 -> {
+            when (response.status) {
+                HttpStatusCode.OK -> {
                     val attendee: Attendee = response.receive()
                     DataResource(attendee)
                 }
@@ -98,11 +92,12 @@ object KtorAttendeesRepository : AttendeesRepository {
         try {
             val response: HttpResponse = client.post("$BASE_URL/attendees") {
                 header(HttpHeaders.ContentType, "application/json")
+                header(HttpHeaders.Authorization, "Basic Q2h1Ynk6QXZvZHJvYw==")
                 body = attendee
             }
 
-            when (response.status.value) {
-                201 -> {
+            when (response.status) {
+                HttpStatusCode.Created -> {
                     val savedAttendee: Attendee = response.receive()
                     DataResource(savedAttendee)
                 }
@@ -126,8 +121,8 @@ object KtorAttendeesRepository : AttendeesRepository {
                 header(HttpHeaders.Authorization, "Basic Q2h1Ynk6QXZvZHJvYw==")
             }
 
-            when (response.status.value) {
-                202 -> {
+            when (response.status) {
+                HttpStatusCode.Accepted -> {
                     val savedAttendee: Attendee = response.receive()
                     DataResource(savedAttendee)
                 }
