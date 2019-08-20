@@ -1,0 +1,210 @@
+{
+	"info": {
+		"_postman_id": "0cdc7086-0d92-46e0-a054-2805ef7a6de9",
+		"name": "Kotlin Everywhere",
+		"description": "Backend that shows attendees of Kotlin Everywhere Mexico Tour",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Attendees",
+			"item": [
+				{
+					"name": "Get attendees",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8090/attendees",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"attendees"
+							]
+						},
+						"description": "Returns a list of all attenddess in the registered in the server"
+					},
+					"response": []
+				},
+				{
+					"name": "Get attendee by id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8090/attendees/{{$attendee_id}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"attendees",
+								"{{$attendee_id}}"
+							]
+						},
+						"description": "Returns an attendee associated to the given id"
+					},
+					"response": []
+				},
+				{
+					"name": "Save attendee",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "Avodroc",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "Chuby",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"Mariet\",\n\t\"last_name\":\"Pantoja\",\n\t\"about\": \"Wondering what she does...\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8090/attendees",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"attendees"
+							]
+						},
+						"description": "Send attendee data to be saved in the server"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete attendee by Id",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "Avodroc",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "Chuby",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8090/attendees/{{$attendee_id}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"attendees",
+								"{{$attendee_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Main",
+			"item": [
+				{
+					"name": "root",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "text/plain",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8090/",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "abfd73ca-334e-4ef7-9438-d93be4de62b3",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "dff0cbb6-3c3a-461c-a1e0-3c4c5e2c3927",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "efc2a792-ffed-4aa5-99d3-3b439e0b67a9",
+			"key": "$attendee_id",
+			"value": "0",
+			"type": "string"
+		}
+	]
+}
